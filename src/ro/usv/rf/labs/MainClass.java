@@ -4,6 +4,7 @@ import ro.usv.rf.Pattern;
 import ro.usv.rf.utils.FileUtils;
 import ro.usv.rf.utils.StatisticsUtils;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class MainClass {
@@ -25,11 +26,18 @@ public class MainClass {
 		
 		Map<Pattern, Integer> patternsMap = StatisticsUtils.getPatternsMapFromInitialSet(patternSet);
 		
-		
 		double[] weightedAverages = StatisticsUtils.calculateWeightedAverages(patternsMap, numberOfFeatures);
+		double[] dispersion = StatisticsUtils.calculateDispersion(patternsMap, numberOfFeatures);
+		double[] frequency = StatisticsUtils.calculateFrequency(patternsMap, numberOfPatterns);
+		double covariance = StatisticsUtils.calculateCovariane(0,0,patternsMap,numberOfFeatures,numberOfPatterns);
+		double correlation = StatisticsUtils.correlationCoefficient(0,1,patternsMap,numberOfFeatures,numberOfPatterns);
+		double[] squareDeviation = StatisticsUtils.averageSquareDeviation(patternsMap, numberOfFeatures);
+		double[][] newFeatures = StatisticsUtils.featuresAutoscalling(patternsMap,patternSet,numberOfFeatures,numberOfPatterns);
+
+		for(double[] i : newFeatures){
+			System.out.println(Arrays.toString(i));
+		}
+
 				
 	}
-
-
-
 }
