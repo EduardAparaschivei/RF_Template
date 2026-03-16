@@ -3,39 +3,54 @@ package ro.usv.rf.utils;
 public class DistanceMatrix {
     private double[][] matDist;
 
-    public DistanceMatrix(double [][] patternSet){
-        matDist = new double[patternSet.length][patternSet.length];
+    public DistanceMatrix(double[][] patternSet, IDistance metric){
+        matDist = new double[patternSet.length][];
         for(int i=0;i<patternSet.length;i++){
-            for(int j = 0;j<patternSet.length;j++){
-                matDist[i][j] = DistanceUtils.distEuclid(patternSet[i],patternSet[j]);
+            matDist[i] = new double[i+1];
+            for(int j = 0;j<=i;j++){
+                matDist[i][j] = metric.distance(patternSet[i],patternSet[j]);
             }
+        }
+    }
+
+    public double d(int i, int j){
+        if(i >= j){
+            return matDist[i][j];
+        }else {
+            return matDist[j][i];
         }
     }
 
     @Override
     public String toString() {
-        String str = new String();
-        for(double[] lineset : matDist){
-            for(double vLine : lineset){
-                str += String.format("%.2f ", vLine);
+        StringBuilder str = new StringBuilder();
+
+        for(int i=0;i<matDist.length;i++){
+            for(int j=0;j<matDist.length;j++){
+                str.append(String.format("%.2f ", d(i, j)));
             }
-            str+="\n";
+            str.append("\n");
         }
-        return str;
+        return str.toString();
     }
 
     public double[][] neighbours(int i){
-        double[][] neigh = new double[2][matDist[0].length];
-        for(int j=0;j<matDist[0].length;j++){
+        double[][] neigh = new double[2][matDist.length];
+        for(int j=0;j<matDist.length;j++){
             neigh[0][j] = j;
-            neigh[1][j] = matDist[i][j];
+            neigh[1][j] = d(i,j);
         }
 
-        for(int j=0;j<neigh[0].length;j++){
-            for(int x=j+1;x<neigh[0].length-1;x++){
-                if(neigh[1][x+1] < neigh[1][x]){
-                     double aux = neigh[1][x+1];
+        for(int j = 0; j < neigh[0].length - 1; j++){
+            for(int x = j + 1; x < neigh[0].length; x++){
+                if(neigh[1][x] < neigh[1][j]){
+                    double aux = neigh[1][j];
+                    neigh[1][j] = neigh[1][x];
+                    neigh[1][x] = aux;
 
+                    aux = neigh[0][j];
+                    neigh[0][j] = neigh[0][x];
+                    neigh[0][x] = aux;
                 }
             }
         }
@@ -43,4 +58,6 @@ public class DistanceMatrix {
 
         return neigh;
     }
+
+
 }

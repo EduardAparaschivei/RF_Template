@@ -1,9 +1,6 @@
 package ro.usv.rf.labs;
 
-import ro.usv.rf.utils.DataUtils;
-import ro.usv.rf.utils.DistanceMatrix;
-import ro.usv.rf.utils.DistanceUtils;
-import ro.usv.rf.utils.FileUtils;
+import ro.usv.rf.utils.*;
 
 import java.util.Arrays;
 
@@ -15,11 +12,18 @@ public class Lab3 {
 
         double dist = DistanceUtils.distEuclid(patternset[0],patternset[1]);
 
-        DistanceMatrix distMat = new DistanceMatrix(patternset);
-        System.out.println(distMat.toString());
+        DistanceMatrix distMat = new DistanceMatrix(patternset, new CityBlockDistance());
+        System.out.println(distMat);
         System.out.println();
-        double[][] neighbours = distMat.neighbours(0);
-        System.out.println(Arrays.deepToString(neighbours));
+        double[][] neighbours = distMat.neighbours(6);
+
+        for(double[] i : neighbours){
+            for(double j : i){
+                String str = String.format("%.2f ", j);
+                System.out.print(str);
+            }
+            System.out.println();
+        }
 
     }
 }

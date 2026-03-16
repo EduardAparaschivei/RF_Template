@@ -1,5 +1,7 @@
 package ro.usv.rf.utils;
 
+import static ro.usv.rf.utils.DistanceUtils.distCheb;
+
 public class DistanceUtils {
 
     public static double distEuclid ( double x[], double y[] ) {
@@ -35,20 +37,6 @@ public class DistanceUtils {
         return d;
     }
 
-    public static double[][] matDistEuclid(double[][] patternSet, int numberOfPatterns, int numberOfFeatures){
-        double[][] distMatrix = new double[numberOfPatterns][numberOfPatterns];
-        for(int i=0;i<numberOfPatterns;i++){
-            for(int j=0;j<numberOfPatterns;j++){
-                double d = 0;
-                for(int x=0;x<numberOfFeatures;x++){
-                    d += (patternSet[i][x]-patternSet[j][x]) * (patternSet[i][x]-patternSet[j][x]);
-                }
-                d = Math.sqrt(d);
-                distMatrix[i][j] = d;
-            }
-        }
-        return distMatrix;
-    }
 }
 
 class SpatiiDeDimensiuniDiferite extends RuntimeException{
