@@ -16,10 +16,12 @@ public class DistanceUtils {
 
 	public static double distCityBlock ( double x[], double y[] )  {
 		if(x.length != y.length) throw new DifferentSpaceSizeException("("+x.length+", "+y.length+")");
-		
-		double d = 0;
 
-	    return d;
+		double d = 0;
+		for(int j=0; j< x.length; j++)
+			d += Math.abs(x[j]-y[j]);
+
+		return d;
 	}
 	public static double distCanberra ( double x[], double y[] )  {
 		if(x.length != y.length) throw new DifferentSpaceSizeException("("+x.length+", "+y.length+")");
@@ -31,10 +33,12 @@ public class DistanceUtils {
 
 	public static double distCebisev ( double x[], double y[] )  {
 		if(x.length != y.length) throw new DifferentSpaceSizeException("("+x.length+", "+y.length+")");
-		
-		double dmax = 0;
 
- 	    return dmax;
+		double d = 0;
+		for(int j=0; j< x.length; j++)
+			d = Math.max(d, Math.abs(x[j]-y[j]));
+
+		return d;
 	}
 	
 }

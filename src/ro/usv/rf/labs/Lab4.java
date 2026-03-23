@@ -30,7 +30,7 @@ public class Lab4 {
 		}
 
 	   public static void demoClassifier_1NN() {
-		    String[] numeClase = new String[] {"", "A", "B"};
+		    String[] numeClase = new String[] {"", "A", "B", "C"};
 			SupervisedLearningSet setSuperv3 = new SupervisedLearningSet("file2.txt", numeClase);
 
 			

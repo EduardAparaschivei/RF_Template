@@ -8,6 +8,7 @@ package ro.usv.rf.utils;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+
 public class DataUtils {
     
     public static void printMatrix(double[][] x){
@@ -18,6 +19,21 @@ public class DataUtils {
             System.out.println("numCols="+lin.length);
         }
     }
+
+	public static void printDistanceMatrix(double[][] x,double[][] X, double[] z){
+		System.out.println("Distanta de la z=["+z[0]+", "+z[1]+"] la:");
+		for(int i=0;i<x[0].length;i++){
+			String formatedDistance = String.format("%.2f ",x[1][i]);
+			System.out.println("x["+x[0][i]+"]="+Arrays.toString(X[(int) x[0][i]])+" este d="+formatedDistance);
+		}
+	}
+
+	public static void printVector(double[] x) {
+		for(double xcrt : x) {
+			System.out.print(String.format("%10.2f  \t", xcrt));
+		}
+		System.out.println("numElements=" + x.length);
+	}
     
     public static void printPatternsAndWeigthsSet(double[][] X, double[] f){
 	IntStream.range(0, X.length)
@@ -47,4 +63,19 @@ public class DataUtils {
 		return xAutoScaled;
 	}
 
+	public static void sortDistancesAndIndexes(double[][] data){
+		for(int i=0;i<data[0].length;i++) {
+			for (int j = 0; j < data[0].length - 1; j++) {
+				if (data[1][j + 1] < data[1][j]) {
+					double aux = data[1][j + 1];
+					data[1][j + 1] = data[1][j];
+					data[1][j] = aux;
+
+					aux = data[0][j + 1];
+					data[0][j + 1] = data[0][j];
+					data[0][j] = aux;
+				}
+			}
+		}
+	}
 }
